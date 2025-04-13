@@ -7,6 +7,9 @@ namespace DotnetExtensions
 {
     public static class LinqExtensions
     {
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+            => source.GroupBy(keySelector).Select(x => x.First());
+        
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
             using (var enumerator = source.GetEnumerator())
@@ -82,14 +85,12 @@ namespace DotnetExtensions
                     merged[kvp.Key] = kvp.Value;
                 }
             }
-            if (second != null)
+            if (second == null) return merged;
+            
+            foreach (var value in second)
             {
-                foreach (var value in second)
-                {
-                    merged[value.Key] = value.Value;
-                }
+                merged[value.Key] = value.Value;
             }
-
             return merged;
         }
     }
