@@ -25,7 +25,7 @@ namespace DotnetExtensions
             var newValue2 = newValue.AsSpan();
             var x = value.IndexOf(oldValue, oldValue.Length, comparisonType);
             if (value.IndexOf(oldValue, comparisonType) == -1) return value;
-            return value.ReplaceAll(oldValue, newValue, comparisonType);
+            return value.Replace(oldValue, newValue).ReplaceAll(oldValue, newValue, comparisonType);
         }
 
         public static bool WithAproximation(this string value, string compare, double aproximation)
