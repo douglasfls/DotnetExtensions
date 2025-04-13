@@ -23,7 +23,6 @@ namespace DotnetExtensions
         public static string ReplaceAll(this string value, string oldValue, string newValue, StringComparison comparisonType = StringComparison.CurrentCulture)
         {
             var newValue2 = newValue.AsSpan();
-            newValue.IndexOf
             var x = value.IndexOf(oldValue, oldValue.Length, comparisonType);
             if (value.IndexOf(oldValue, comparisonType) == -1) return value;
         }
