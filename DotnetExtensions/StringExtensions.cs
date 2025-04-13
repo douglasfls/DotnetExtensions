@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DotnetExtensions
 {
@@ -22,10 +23,7 @@ namespace DotnetExtensions
 
         public static string ReplaceAll(this string value, string oldValue, string newValue, StringComparison comparisonType = StringComparison.CurrentCulture)
         {
-            var newValue2 = newValue.AsSpan();
-            var x = value.IndexOf(oldValue, oldValue.Length, comparisonType);
-            if (value.IndexOf(oldValue, comparisonType) == -1) return value;
-            return value.Replace(oldValue, newValue).ReplaceAll(oldValue, newValue, comparisonType);
+            return Regex.Replace(value, oldValue, newValue, RegexOptions.IgnoreCase);
         }
 
         public static bool WithAproximation(this string value, string compare, double aproximation)

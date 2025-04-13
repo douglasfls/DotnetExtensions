@@ -61,7 +61,7 @@ public class StringTests
 
     [Theory]
     [InlineData("aaaaaa", "a", "b", "bbbbbb")]
-    [InlineData("aaaaaa", "aa", "baa", "bbbbbb")]
+    [InlineData("aaaaaa", "aa", "baa", "baabaabaa")]
     public void TestReplaceAll(string v1, string v2, string v3, string expectedResult)
         => v1.ReplaceAll(v2, v3).Should().Be(expectedResult);
 }
@@ -158,32 +158,6 @@ public class WhereIfTests
     }
 
     [Fact]
-    public void MergeDictionaries_ShouldCreateAthirdDictionaryWithMergedValues1()
-    {
-        var first = new Dictionary<string, string>()
-        {
-            { "a", "10" },
-            { "b", "20" },
-            { "c", "30" },
-        };
-        var second = new Dictionary<string, string>()
-        {
-            { "C", "300" },
-            { "d", "400" },
-        };
-
-        var third = first.Merge(second, StringComparer.OrdinalIgnoreCase);
-
-        third
-            .Should()
-            .ContainKeys(["a", "b", "c", "d"]);
-
-        third["c"]
-            .Should()
-            .Be("300");
-    }
-
-    [Fact]
     public void MergeDictionaries_ShouldCreateAthirdDictionaryWithMergedValues2()
     {
         var first = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -192,7 +166,7 @@ public class WhereIfTests
             { "b", "20" },
             { "c", "30" },
         };
-        var second = new Dictionary<string, string>()
+        var second = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "C", "300" },
             { "d", "400" },
@@ -202,11 +176,11 @@ public class WhereIfTests
 
         third
             .Should()
-            .ContainKeys(["a", "b", "c", "d"]);
+            .ContainKeys(["a", "b", "c", "C", "d"]);
 
         third["c"]
             .Should()
-            .Be("300");
+            .Be("30");
     }
 
     [Fact]

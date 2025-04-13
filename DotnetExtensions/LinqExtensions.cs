@@ -69,29 +69,5 @@ namespace DotnetExtensions
             => condition.HasValue && condition.Value ? values?.Where(predicateIf)
                 : predicateElse != null ? values?.Where(predicateElse)
                 : values;
-
-        public static IDictionary<TKey, TValue> Merge<TKey, TValue>(this IDictionary<TKey, TValue> first,
-            IDictionary<TKey, TValue> second, IEqualityComparer<TKey> comparer = null)
-        {
-            if (first is Dictionary<TKey, TValue> dictionary
-                && comparer is null)
-                comparer = dictionary.Comparer;
-            
-            var merged = new Dictionary<TKey, TValue>(comparer);
-            if (first != null)
-            {
-                foreach (var kvp in first)
-                {
-                    merged[kvp.Key] = kvp.Value;
-                }
-            }
-            if (second == null) return merged;
-            
-            foreach (var value in second)
-            {
-                merged[value.Key] = value.Value;
-            }
-            return merged;
-        }
     }
 }
